@@ -233,4 +233,8 @@ modules.xml
 .idea/misc.xml
 *.ipr
 
+# Go
+/.GOPATH
+/bin
+
 # End of https://www.toptal.com/developers/gitignore/api/dotenv,goland,goland+iml,goland+all
