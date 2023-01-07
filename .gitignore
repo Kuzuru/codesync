@@ -236,5 +236,16 @@ modules.xml
 # Go
 /.GOPATH
 /bin
+/.direnv/
+/bin/
+/build/
+/config.*
+!config.toml.dist
+!config.yaml.dist
+/docker-compose.override.yml
+/.env
+/.env.test
+/var/
+/vendor/
 
 # End of https://www.toptal.com/developers/gitignore/api/dotenv,goland,goland+iml,goland+all
