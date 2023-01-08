@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"go.uber.org/zap"
 
+	"github.com/kuzuru/codesync/internal/routes/api/snippet"
 	"github.com/kuzuru/codesync/pkg/logger"
 )
 
@@ -23,6 +24,9 @@ func Run(log *logger.Logger) {
 
 	app.Use(cors.New())
 
+	// Building all routes and middlewares together
+	buildHandlers(app)
+
 	address := ":" + os.Getenv("APP_PORT_HTTP")
 
 	go func() {
@@ -36,4 +40,8 @@ func Run(log *logger.Logger) {
 			zap.String("address", address),
 		)
 	}
+}
+
+func buildHandlers(app *fiber.App) {
+	snippet.RegisterHandlers(app)
 }
