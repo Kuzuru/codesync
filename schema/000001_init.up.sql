@@ -7,12 +7,17 @@ CREATE TABLE IF NOT EXISTS users
     updated_at TIMESTAMPTZ        NOT NULL DEFAULT now()
 );
 
+INSERT INTO users
+    (id, name, avatar)
+VALUES
+    (0, 'Unregistered User', 'https://isota.dxportable.com/assets/img/user.png');
+
 CREATE TABLE IF NOT EXISTS snippets
 (
     id           SERIAL PRIMARY KEY NOT NULL UNIQUE,
     link         UUID               NOT NULL UNIQUE DEFAULT gen_random_uuid(),
     title        VARCHAR(255)       NOT NULL,
-    language     VARCHAR(255)       NOT NULL        DEFAULT 'Plain Text',
+    lang         VARCHAR(255)       NOT NULL,
     code         TEXT               NOT NULL,
     author_id    INTEGER            NOT NULL        DEFAULT 0,
     is_anonymous BOOLEAN            NOT NULL        DEFAULT FALSE,
