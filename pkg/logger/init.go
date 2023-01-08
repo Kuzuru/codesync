@@ -1,13 +1,54 @@
 package logger
 
 import (
+	"github.com/gofiber/fiber/v2"
 	"go.uber.org/zap"
 )
 
-func Init() (*zap.Logger, error) {
-	logger, err := zap.NewProduction()
+type Logger struct {
+	*zap.Logger
+}
 
-	defer logger.Sync()
+func (l *Logger) Info(msg string, fields ...zap.Field) {
+	if !fiber.IsChild() {
+		l.Logger.Info(msg, fields...)
+	}
+}
 
-	return logger, err
+func (l *Logger) Warn(msg string, fields ...zap.Field) {
+	if !fiber.IsChild() {
+		l.Logger.Warn(msg, fields...)
+	}
+}
+
+func (l *Logger) Error(msg string, fields ...zap.Field) {
+	if !fiber.IsChild() {
+		l.Logger.Error(msg, fields...)
+	}
+}
+
+func (l *Logger) Panic(msg string, fields ...zap.Field) {
+	if !fiber.IsChild() {
+		l.Logger.Panic(msg, fields...)
+	}
+}
+
+func (l *Logger) Fatal(msg string, fields ...zap.Field) {
+	if !fiber.IsChild() {
+		l.Logger.Fatal(msg, fields...)
+	}
+}
+
+func (l *Logger) Debug(msg string, fields ...zap.Field) {
+	if !fiber.IsChild() {
+		l.Logger.Debug(msg, fields...)
+	}
+}
+
+func New() *Logger {
+	logger, _ := zap.NewProduction()
+
+	return &Logger{
+		logger,
+	}
 }
