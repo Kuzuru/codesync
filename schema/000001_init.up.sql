@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS snippets
     title        VARCHAR(255)       NOT NULL,
     language     VARCHAR(255)       NOT NULL        DEFAULT 'Plain Text',
     code         TEXT               NOT NULL,
-    views        INTEGER            NOT NULL        DEFAULT 0,
     author_id    INTEGER            NOT NULL        DEFAULT 0,
     is_anonymous BOOLEAN            NOT NULL        DEFAULT FALSE,
     created_at   TIMESTAMPTZ        NOT NULL        default now(),
