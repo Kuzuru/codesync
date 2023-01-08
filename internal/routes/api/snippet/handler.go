@@ -2,7 +2,6 @@ package snippet
 
 import (
 	"context"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	"go.uber.org/zap"
@@ -89,7 +88,41 @@ func (r *resource) get(c *fiber.Ctx) error {
 }
 
 func (r *resource) new(c *fiber.Ctx) error {
-	return c.SendString("new\\handler!")
+	// TODO: I should probably get rid of this in this file
+	type Request struct {
+		Title    string `json:"title"`
+		Language string `json:"language"`
+		Code     string `json:"code"`
+		//Time           int    `json:"time"`            // 0 is lifetime
+		//ViewsAvailable int    `json:"views_available"` // 0 is unlimited
+	}
+
+	var req Request
+
+	if err := c.BodyParser(&req); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	var s snippet.Snippet
+
+	// TODO: Replace with something better
+	// TODO: I have to save Request struct in case to get what am I accepting
+	s.Title = req.Title
+	s.Language = req.Language
+	s.Code = req.Code
+
+	err := r.storage.Create(context.TODO(), &s)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"link": s.Link,
+	})
 }
 
 func (r *resource) latest(c *fiber.Ctx) error {
