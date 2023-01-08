@@ -16,4 +16,4 @@ CodeSync is licensed under the [MIT License](https://github.com/Kuzuru/codesync/
 ### Contact
 
 If you have any questions about the CodeSync backend,
-feel free to contact us at [kuzuru.dev@gmail.com](mailto:kuzuru.dev@gmail.com)
+feel free to contact us at [devs@codesync.ru](mailto:devs@codesync.ru)
